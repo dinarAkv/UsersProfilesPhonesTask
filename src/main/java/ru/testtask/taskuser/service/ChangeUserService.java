@@ -12,8 +12,8 @@ import java.util.Set;
 @Validated
 public interface ChangeUserService {
 
-    long createUser(@Valid CreateUserRequest createUserRequest);
-    void changeUser(@Valid ChangeUserRequest changeUserRequest);
+    UserDataResponse createUser(@Valid CreateUserRequest createUserRequest);
+    UserDataResponse changeUser(@Valid ChangeUserRequest changeUserRequest);
 
     @Builder
     @Value
@@ -34,5 +34,20 @@ public interface ChangeUserService {
         @NotNull
         Long userId;
         CreateUserRequest userData;
+    }
+
+    @Builder
+    @Value
+    class UserDataResponse {
+        @NotNull
+        Long id;
+        @NotNull
+        String name;
+        int age;
+        @NotNull
+        String email;
+        @NotEmpty
+        String cash;
+        Set<String> phones;
     }
 }

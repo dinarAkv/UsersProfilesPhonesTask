@@ -1,0 +1,38 @@
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet author="kray1@list.ru" id="taskuser.createTable.PROFILES">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="TASKUSER" tableName="PROFILES" />
+            </not>
+        </preConditions>
+        <createTable schemaName="TASKUSER" tableName="PROFILES">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="CASH" type="CURRENCY" >
+                <constraints nullable="false" />
+            </column>
+            <column name="USER_ID" type="BIGINT">
+                <constraints foreignKeyName="USERS_ID_FK" references="TASKUSER.USERS(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="kray1@list.ru" id="taskuser.createSequence.PROFILES_SEQ">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists schemaName="TASKUSER" sequenceName="PROFILES_SEQ" />
+            </not>
+        </preConditions>
+        <createSequence schemaName="TASKUSER" sequenceName="PROFILES_SEQ" startValue="1" incrementBy="2" />
+    </changeSet>
+
+
+
+</databaseChangeLog>

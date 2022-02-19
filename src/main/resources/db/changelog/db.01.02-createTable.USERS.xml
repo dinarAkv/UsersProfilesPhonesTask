@@ -1,0 +1,72 @@
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet author="kray1@list.ru" id="taskuser.createTable.USERS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="TASKUSER" tableName="USERS" />
+            </not>
+        </preConditions>
+        <createTable schemaName="TASKUSER" tableName="USERS">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="NAME" type="VARCHAR(128)">
+                <constraints nullable="false" />
+            </column>
+            <column name="AGE" type="INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="EMAIL" type="VARCHAR(128)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="kray1@list.ru" id="taskuser.createSequence.USERS_SEQ">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists schemaName="TASKUSER" sequenceName="USERS_SEQ" />
+            </not>
+        </preConditions>
+        <createSequence schemaName="TASKUSER" sequenceName="USERS_SEQ" startValue="1" incrementBy="2" />
+    </changeSet>
+
+    <changeSet author="kray1@list.ru" id="taskuser.createIndex.USERS_NAME_IX">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists schemaName="TASKUSER" tableName="USERS" indexName="USERS_NAME_IX" />
+            </not>
+        </preConditions>
+        <createIndex tableName="USERS" schemaName="TASKUSER" indexName="USERS_NAME_IX">
+            <column name="NAME" />
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="kray1@list.ru" id="taskuser.createIndex.USERS_AGE_IX">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists schemaName="TASKUSER" tableName="USERS" indexName="USERS_AGE_IX" />
+            </not>
+        </preConditions>
+        <createIndex tableName="USERS" schemaName="TASKUSER" indexName="USERS_AGE_IX">
+            <column name="AGE" />
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="kray1@list.ru" id="taskuser.createIndex.USERS_EMAIL_UC_IX">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists schemaName="TASKUSER" tableName="USERS" indexName="USERS_EMAIL_UC_IX" />
+            </not>
+        </preConditions>
+        <createIndex tableName="USERS" unique="true" schemaName="TASKUSER" indexName="USERS_EMAIL_UC_IX">
+            <column name="EMAIL" />
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

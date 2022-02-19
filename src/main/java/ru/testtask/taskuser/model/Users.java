@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Table(name = "USERS", schema = "TASKUSER",
-        indexes = @Index(name = "USERS_EMAIL_UC_IX", columnList = "EMAIL", unique = true))
+        indexes = { @Index(name = "USERS_EMAIL_UC_IX", columnList = "EMAIL", unique = true),
+                    @Index(name = "USERS_NAME_IX", columnList = "NAME"),
+                    @Index(name = "USERS_AGE_IX", columnList = "AGE")})
 @NoArgsConstructor
 public class Users {
 

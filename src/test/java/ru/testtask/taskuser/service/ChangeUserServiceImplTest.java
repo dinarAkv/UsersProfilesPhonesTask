@@ -18,15 +18,15 @@ public class ChangeUserServiceImplTest extends AbstractLocalTest {
 
     @Test
     void createUser_test() {
-        long userId = changeUserService.createUser(ChangeUserService.CreateUserRequest
-                .builder()
+        ChangeUserService.UserDataResponse createdUser = changeUserService.createUser(
+                ChangeUserService.CreateUserRequest.builder()
                 .name("Ivan")
                 .email("IvanTY@mail.com")
                 .age(34)
                 .cash("123300.45")
                 .phones(Set.of("83452342233", "83452342231"))
                 .build());
-        Assertions.assertThat(userId).isGreaterThan(0L);
+        Assertions.assertThat(createdUser.getId()).isGreaterThan(0L);
     }
 
     @Test

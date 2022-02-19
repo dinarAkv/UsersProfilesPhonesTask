@@ -1,0 +1,48 @@
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet author="kray1@list.ru" id="taskuser.createTable.PHONES">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="TASKUSER" tableName="PHONES" />
+            </not>
+        </preConditions>
+        <createTable schemaName="TASKUSER" tableName="PHONES">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="PHONE" type="VARCHAR(64)" >
+                <constraints nullable="false" />
+            </column>
+            <column name="USER_ID" type="BIGINT">
+                <constraints foreignKeyName="USERS_ID_FK"
+                             references="TASKUSER.USERS(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="kray1@list.ru" id="taskuser.createSequence.PROFILES_SEQ">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists schemaName="TASKUSER" sequenceName="PHONES_SEQ" />
+            </not>
+        </preConditions>
+        <createSequence schemaName="TASKUSER" sequenceName="PHONES_SEQ" startValue="1" incrementBy="2" />
+    </changeSet>
+
+    <changeSet author="kray1@list.ru" id="taskuser.createIndex.PHONES_VAL_UC_IX">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists schemaName="TASKUSER" tableName="PHONES" indexName="PHONES_VAL_UC_IX" />
+            </not>
+        </preConditions>
+        <createIndex tableName="PHONES" schemaName="TASKUSER" indexName="PHONES_VAL_UC_IX" unique="true">
+            <column name="PHONE" />
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

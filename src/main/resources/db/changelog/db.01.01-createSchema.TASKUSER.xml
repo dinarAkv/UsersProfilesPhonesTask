@@ -1,0 +1,14 @@
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet author="kray1@list.ru" id="taskuser.createSchema.TASKUSER">
+        <sql dbms="postgresql">
+            CREATE SCHEMA IF NOT EXISTS TASKUSER;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
