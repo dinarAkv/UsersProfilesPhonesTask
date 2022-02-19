@@ -1,15 +1,14 @@
 package ru.testtask.taskuser.model;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -68,6 +67,24 @@ public class Users {
             Phones nextPhone = iterator.next();
             if (nextPhone.getPhone().equals(phoneToDelete)) {
                 iterator.remove();
+            }
+        }
+    }
+
+    public void replacePhones(Collection<String> phoneVals) {
+        Iterator<Phones> iterator = this.phones.iterator();
+        for (;iterator.hasNext();) {
+            Phones phone = iterator.next();
+            if (!phoneVals.contains(phone.getPhone())) {
+                iterator.remove();
+            }
+        }
+
+        Set<String> currentPhones = this.phones.stream().map(Phones::getPhone)
+                .collect(Collectors.toSet());
+        for (String phoneVal : phoneVals) {
+            if (!currentPhones.contains(phoneVal)) {
+                addPhone(phoneVal);
             }
         }
     }

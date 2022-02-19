@@ -7,20 +7,23 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Validated
-public interface ChangeUserService {
+public interface GetUserDataService {
 
-    long createUser(@Valid CreateUserRequest createUserRequest);
-    void changeUser(@Valid ChangeUserRequest changeUserRequest);
+    UserDataResponse getUserById(Long userId);
+    List<UserDataResponse> filterUsers(@Valid FilteredRequest request);
 
     @Builder
     @Value
-    class CreateUserRequest {
+    class UserDataResponse {
+        @NotNull
+        Long id;
         @NotNull
         String name;
-        Integer age;
+        int age;
         @NotNull
         String email;
         @NotEmpty
@@ -30,9 +33,14 @@ public interface ChangeUserService {
 
     @Builder
     @Value
-    class ChangeUserRequest {
+    class FilteredRequest {
+        Integer age;
+        String phone;
+        String nameLike;
+        String email;
         @NotNull
-        Long userId;
-        CreateUserRequest userData;
+        Integer page;
+        @NotNull
+        Integer pageSize;
     }
 }

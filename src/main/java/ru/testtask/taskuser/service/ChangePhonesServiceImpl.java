@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.testtask.taskuser.dao.repositories.PhonesRepository;
 import ru.testtask.taskuser.dao.repositories.UsersRepository;
-import ru.testtask.taskuser.excpetions.EntityNotFoundException;
 import ru.testtask.taskuser.model.Phones;
 import ru.testtask.taskuser.model.Users;
 
@@ -16,10 +15,11 @@ public class ChangePhonesServiceImpl implements ChangePhonesService {
 
     final UsersRepository usersRepository;
     final PhonesRepository phonesRepository;
+    final CommonUtilService commonUtilService;
 
     @Override
     public void addPhone(AddPhoneRequest addPhoneRequest) {
-        Users user = getUserById(addPhoneRequest.getUserId());
+        Users user = commonUtilService.getUserById(addPhoneRequest.getUserId());
         user.addPhone(addPhoneRequest.getPhoneValue());
         usersRepository.save(user);
     }
@@ -38,15 +38,8 @@ public class ChangePhonesServiceImpl implements ChangePhonesService {
 
     @Override
     public void deletePhone(DeletePhoneRequest deletePhoneRequest) {
-        Users user = getUserById(deletePhoneRequest.getUserId());
+        Users user = commonUtilService.getUserById(deletePhoneRequest.getUserId());
         user.deletePhone(deletePhoneRequest.getPhoneValue());
         usersRepository.save(user);
-    }
-
-    private Users getUserById(Long userId) {
-        Users user = usersRepository.findById(userId)
-                .orElseThrow(() ->
-                        new EntityNotFoundException(userId, Users.class));
-        return user;
     }
 }

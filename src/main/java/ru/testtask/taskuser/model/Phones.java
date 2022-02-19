@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "PHONES", schema = "TASKUSER",
-        indexes = @Index(name = "PHONES_VAL_UC_IX", columnList = "PHONE", unique = true))
+        indexes = @Index(name = "PHONES_VAL_UC_IX", columnList = "PHONE,USER_ID", unique = true))
 @NoArgsConstructor
 public class Phones {
 
@@ -28,10 +28,12 @@ public class Phones {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PHONES_SEQ_GENERATOR")
     Long id;
 
-    @Column(name = "PHONE", nullable = false, unique = true)
+    @Column(name = "PHONE", nullable = false)
     String phone;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     Users user;
+
+
 }

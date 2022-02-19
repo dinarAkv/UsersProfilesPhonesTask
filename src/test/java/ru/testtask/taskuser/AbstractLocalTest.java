@@ -9,6 +9,8 @@ import ru.testtask.taskuser.model.Users;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collection;
+import java.util.Set;
 
 @ActiveProfiles("dev")
 @SpringBootTest(classes = SpringBootLocalRunner.class)
@@ -27,15 +29,18 @@ public abstract class AbstractLocalTest {
     }
 
     protected Users createUser() {
-        Users user = new Users();
-        user.setName("Stepan");
-        user.setAge(35);
-        user.setEmail("stepanIM@mail.com");
-        user.setCash("234567.12");
+        return createUsers("Stepan", 35, "stepanIM@mail.com",
+                "234567.12", Set.of("89211112233", "89211112234", "89211112235"));
+    }
 
-        user.addPhone("89211112233");
-        user.addPhone("89211112234");
-        user.addPhone("89211112235");
+    protected Users createUsers(String name, int age, String email, String cash, Collection<String> phones) {
+        Users user = new Users();
+        user.setName(name);
+        user.setAge(age);
+        user.setEmail(email);
+        user.setCash(cash);
+
+        phones.forEach(phone -> user.addPhone(phone));
         return usersRepository.save(user);
     }
 }
