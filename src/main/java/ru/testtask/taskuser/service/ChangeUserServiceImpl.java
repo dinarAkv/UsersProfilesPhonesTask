@@ -41,11 +41,23 @@ public class ChangeUserServiceImpl implements ChangeUserService {
     @Override
     public UserDataResponse changeUser(ChangeUserRequest changeUserRequest) {
         Users user = commonUtilService.getUserById(changeUserRequest.getUserId());
-        user.setName(changeUserRequest.getUserData().getName());
-        user.setAge(changeUserRequest.getUserData().getAge());
-        user.setEmail(changeUserRequest.getUserData().getEmail());
-        user.setCash(changeUserRequest.getUserData().getCash());
-        user.replacePhones(changeUserRequest.getUserData().getPhones());
+        if (changeUserRequest.getName() != null) {
+            user.setName(changeUserRequest.getName());
+        }
+        if (changeUserRequest.getAge() != null) {
+            user.setAge(changeUserRequest.getAge());
+        }
+        if (changeUserRequest.getEmail() != null) {
+            user.setEmail(changeUserRequest.getEmail());
+        }
+        if (changeUserRequest.getCash() != null) {
+            user.setCash(changeUserRequest.getCash());
+        }
+        if (changeUserRequest.getPhones() != null &&
+                !changeUserRequest.getPhones().isEmpty()) {
+            user.replacePhones(changeUserRequest.getPhones());
+        }
+
         Users changedUser = usersRepository.save(user);
         return UserDataResponse.builder()
                 .id(changedUser.getId())
@@ -55,5 +67,11 @@ public class ChangeUserServiceImpl implements ChangeUserService {
                 .cash(changedUser.getProfiles().getCash().toString())
                 .phones(changedUser.getPhones().stream().map(Phones::getPhone).collect(Collectors.toSet()))
                 .build();
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        Users user = commonUtilService.getUserById(userId);
+        usersRepository.delete(user);
     }
 }

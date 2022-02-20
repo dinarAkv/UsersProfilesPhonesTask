@@ -36,7 +36,7 @@ public class UsersController {
                         .build());
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/createUser")
+    @PostMapping("/createUser")
     public ChangeUserService.UserDataResponse createUser(
             @RequestBody ChangeUserService.CreateUserRequest createUserRequest) {
         return changeUserService.createUser(createUserRequest);
@@ -44,9 +44,12 @@ public class UsersController {
 
     @PostMapping("/changeUser")
     public ChangeUserService.UserDataResponse changeUser(
-            @RequestBody ChangeUserService.CreateUserRequest createUserRequest) {
-        return changeUserService.createUser(createUserRequest);
+            @RequestBody ChangeUserService.ChangeUserRequest changeUserRequest) {
+        return changeUserService.changeUser(changeUserRequest);
     }
 
-
+    @DeleteMapping("/deleteUser/{userId}")
+    public void deleteUser(@PathVariable Long userId) {
+        changeUserService.deleteUser(userId);
+    }
 }

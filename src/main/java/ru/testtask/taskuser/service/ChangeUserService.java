@@ -14,6 +14,7 @@ public interface ChangeUserService {
 
     UserDataResponse createUser(@Valid CreateUserRequest createUserRequest);
     UserDataResponse changeUser(@Valid ChangeUserRequest changeUserRequest);
+    void deleteUser(Long userId);
 
     @Builder
     @Value
@@ -33,7 +34,11 @@ public interface ChangeUserService {
     class ChangeUserRequest {
         @NotNull
         Long userId;
-        CreateUserRequest userData;
+        String name;
+        Integer age;
+        String email;
+        String cash;
+        Set<String> phones;
     }
 
     @Builder

@@ -28,6 +28,7 @@ public class GetUserDataServiceImpl implements GetUserDataService {
     public UserDataResponse getUserById(Long userId) {
         Users user = commonUtilService.getUserById(userId);
         return UserDataResponse.builder()
+                .id(user.getId())
                 .name(user.getName())
                 .age(user.getAge())
                 .email(user.getEmail())

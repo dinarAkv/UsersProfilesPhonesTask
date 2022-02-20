@@ -15,7 +15,8 @@ public interface ChangeProfileService {
     @Builder
     @Value
     class ChangeProfileRequest {
-        long userId;
+        @NotNull
+        Long userId;
         @NotNull
         String cash;
     }
