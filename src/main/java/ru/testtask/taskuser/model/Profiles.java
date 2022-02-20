@@ -19,6 +19,7 @@ public class Profiles {
 
     public Profiles(BigDecimal cash) {
         this.cash = cash;
+        this.initCash = cash;
     }
 
     @Id
@@ -33,6 +34,9 @@ public class Profiles {
 
     @Column(name = "CASH", nullable = false)
     BigDecimal cash;
+
+    @Column(name = "INIT_CASH", nullable = false)
+    BigDecimal initCash;
 
     @OneToOne
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")

@@ -3,6 +3,7 @@ package ru.testtask.taskuser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import ru.testtask.taskuser.dao.repositories.UsersRepository;
 import ru.testtask.taskuser.model.Users;
@@ -12,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import java.util.Collection;
 import java.util.Set;
 
+@TestPropertySource(properties = "app.scheduling.enable=false")
 @ActiveProfiles("dev")
 @SpringBootTest(classes = SpringBootLocalRunner.class)
 @Transactional

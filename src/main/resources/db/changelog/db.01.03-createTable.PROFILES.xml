@@ -18,6 +18,9 @@
             <column name="CASH" type="CURRENCY" >
                 <constraints nullable="false" />
             </column>
+            <column name="INIT_CASH" type="CURRENCY" >
+                <constraints nullable="false" />
+            </column>
             <column name="USER_ID" type="BIGINT">
                 <constraints foreignKeyName="USERS_ID_FK" references="TASKUSER.USERS(ID)"/>
             </column>
