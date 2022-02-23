@@ -9,4 +9,6 @@
     <include file="/changelog/db.01.02-createTable.USERS.xml" relativeToChangelogFile="true"/>
     <include file="/changelog/db.01.03-createTable.PROFILES.xml" relativeToChangelogFile="true"/>
     <include file="/changelog/db.01.04-createTable.PHONES.xml" relativeToChangelogFile="true"/>
+    <include file="/changelog/db.01.05-createTable.USERS_ACCOUNT.xml" relativeToChangelogFile="true"/>
+    <include file="/changelog/db.01.06-createTable.USERS_ROLE.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

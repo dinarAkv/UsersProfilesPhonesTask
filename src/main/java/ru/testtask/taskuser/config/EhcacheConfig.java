@@ -1,4 +1,4 @@
-package ru.testtask.taskuser;
+package ru.testtask.taskuser.config;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;

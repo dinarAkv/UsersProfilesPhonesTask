@@ -2,11 +2,16 @@ package ru.testtask.taskuser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+import ru.testtask.taskuser.config.security.jwt.RoleCode;
+import ru.testtask.taskuser.dao.repositories.UsersAccountRepository;
 import ru.testtask.taskuser.dao.repositories.UsersRepository;
 import ru.testtask.taskuser.model.Users;
+import ru.testtask.taskuser.model.UsersAccount;
+import ru.testtask.taskuser.service.security.AdminSecurityService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +26,13 @@ public abstract class AbstractLocalTest {
 
     @Autowired
     protected UsersRepository usersRepository;
+    @Autowired
+    protected PasswordEncoder passwordEncoder;
+    @Autowired
+    protected UsersAccountRepository usersAccountRepository;
+
+    @Autowired
+    protected AdminSecurityService adminSecurityService;
 
     @PersistenceContext
     protected EntityManager em;
@@ -44,5 +56,16 @@ public abstract class AbstractLocalTest {
 
         phones.forEach(phone -> user.addPhone(phone));
         return usersRepository.save(user);
+    }
+
+    protected void registerUserAccount(String login, String password, Set<RoleCode> roles) {
+        UsersAccount usersAccount = new UsersAccount();
+        usersAccount.setLogin(login);
+        usersAccount.setPassword(passwordEncoder.encode(password));
+        for (RoleCode roleCode : roles) {
+            usersAccount.addRole(roleCode);
+        }
+
+        usersAccountRepository.save(usersAccount);
     }
 }

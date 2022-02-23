@@ -1,4 +1,4 @@
-package ru.testtask.taskuser;
+package ru.testtask.taskuser.config;
 
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
