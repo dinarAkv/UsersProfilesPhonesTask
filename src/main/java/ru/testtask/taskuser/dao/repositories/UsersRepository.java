@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface UsersRepository extends PagingAndSortingRepository<Users, Long>, JpaSpecificationExecutor<Users> {
 
     Optional<Users> findById(Long id);
+
+    Optional<Users> findByEmail(String email);
+
 }

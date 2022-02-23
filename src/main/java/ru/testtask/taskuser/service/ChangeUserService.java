@@ -19,10 +19,11 @@ public interface ChangeUserService {
     @Builder
     @Value
     class CreateUserRequest {
-        @NotNull
+        @NotEmpty
         String name;
-        Integer age;
         @NotNull
+        Integer age;
+        @NotEmpty
         String email;
         @NotEmpty
         String cash;
@@ -46,10 +47,10 @@ public interface ChangeUserService {
     class UserDataResponse {
         @NotNull
         Long id;
-        @NotNull
+        @NotEmpty
         String name;
         int age;
-        @NotNull
+        @NotEmpty
         String email;
         @NotEmpty
         String cash;

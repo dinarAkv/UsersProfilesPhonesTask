@@ -21,10 +21,10 @@ public interface GetUserDataService {
     class UserDataResponse {
         @NotNull
         Long id;
-        @NotNull
+        @NotEmpty
         String name;
         int age;
-        @NotNull
+        @NotEmpty
         String email;
         @NotEmpty
         String cash;

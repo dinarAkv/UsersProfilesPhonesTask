@@ -3,6 +3,7 @@ package ru.testtask.taskuser.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.testtask.taskuser.service.security.AdminSecurityService;
@@ -16,7 +17,8 @@ public class AdminController {
     final AdminSecurityService adminSecurityService;
 
     @PostMapping("/register")
-    public AdminSecurityService.RegisterResponse registerAccount(AdminSecurityService.RegisterRequest request) {
+    public AdminSecurityService.RegisterResponse registerAccount(
+            @RequestBody AdminSecurityService.RegisterRequest request) {
         return adminSecurityService.registerAccount(request);
     }
 }

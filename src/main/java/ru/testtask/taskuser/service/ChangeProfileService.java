@@ -5,6 +5,7 @@ import lombok.Value;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Validated
@@ -17,7 +18,7 @@ public interface ChangeProfileService {
     class ChangeProfileRequest {
         @NotNull
         Long userId;
-        @NotNull
+        @NotEmpty
         String cash;
     }
 }

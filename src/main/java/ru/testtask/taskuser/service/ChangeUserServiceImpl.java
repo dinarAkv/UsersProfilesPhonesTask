@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.testtask.taskuser.dao.repositories.UsersRepository;
+import ru.testtask.taskuser.excpetions.UserAlreadyExistException;
 import ru.testtask.taskuser.model.Phones;
 import ru.testtask.taskuser.model.Users;
 
@@ -19,6 +20,9 @@ public class ChangeUserServiceImpl implements ChangeUserService {
 
     @Override
     public UserDataResponse createUser(CreateUserRequest createUserRequest) {
+        usersRepository.findByEmail(createUserRequest.getEmail())
+                .ifPresent(u -> {throw new UserAlreadyExistException(createUserRequest.getEmail());});
+
         Users users = new Users();
         for (String phoneVal : createUserRequest.getPhones()) {
             users.addPhone(phoneVal);
