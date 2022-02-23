@@ -21,18 +21,13 @@ public class ChangePhonesServiceImpl implements ChangePhonesService {
 
     @Override
     public void addPhone(AddPhoneRequest addPhoneRequest) {
-        log.debug("Add phone {} request for user {}", addPhoneRequest.getPhoneValue(), addPhoneRequest.getUserId());
         Users user = commonUtilService.getUserById(addPhoneRequest.getUserId());
         user.addPhone(addPhoneRequest.getPhoneValue());
         usersRepository.save(user);
-        log.debug("Phone {} added", addPhoneRequest.getPhoneValue());
     }
 
     @Override
     public void changePhone(ChangePhoneRequest changePhoneRequest) {
-        log.debug("Change phone {} to {} request for user {}",
-                changePhoneRequest.getOldPhoneValue(), changePhoneRequest.getNewPhoneValue(),
-                changePhoneRequest.getUserId());
         String oldPhoneValue = changePhoneRequest.getOldPhoneValue();
         Long userId = changePhoneRequest.getUserId();
         Phones phone = phonesRepository.findByPhoneAndUserId(oldPhoneValue,
@@ -40,17 +35,13 @@ public class ChangePhonesServiceImpl implements ChangePhonesService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         String.format("Phone with id %s and userId %s not found", oldPhoneValue, userId)));
         phone.setPhone(changePhoneRequest.getNewPhoneValue());
-        Phones changedPhone = phonesRepository.save(phone);
-        log.debug("Phone changed to {}", changedPhone.getPhone());
+        phonesRepository.save(phone);
     }
 
     @Override
     public void deletePhone(DeletePhoneRequest deletePhoneRequest) {
-        log.debug("Delete phone {} request for user {}", deletePhoneRequest.getPhoneValue(),
-            deletePhoneRequest.getUserId());
         Users user = commonUtilService.getUserById(deletePhoneRequest.getUserId());
         user.deletePhone(deletePhoneRequest.getPhoneValue());
         usersRepository.save(user);
-        log.debug("Phone {} removed", deletePhoneRequest.getPhoneValue());
     }
 }
